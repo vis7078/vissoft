@@ -26,6 +26,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[2]
 STATE_PATH = ROOT / "tools" / "wishket" / "storage_state.json"
+PROFILE_DIR = ROOT / "tools" / "wishket" / "profile"
 
 
 def norm_ws(s: str) -> str:
@@ -46,8 +47,18 @@ def main():
     os.makedirs(out_path.parent, exist_ok=True)
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=not args.headful)
-        ctx = browser.new_context(storage_state=str(STATE_PATH))
+        # Prefer persistent profile if available (more stable auth). Fallback to storage_state.
+        if PROFILE_DIR.exists() and any(PROFILE_DIR.iterdir()):
+            ctx = p.chromium.launch_persistent_context(
+                user_data_dir=str(PROFILE_DIR),
+                headless=not args.headful,
+                locale="ko-KR",
+                viewport={"width": 1280, "height": 900},
+            )
+        else:
+            browser = p.chromium.launch(headless=not args.headful)
+            ctx = browser.new_context(storage_state=str(STATE_PATH))
+
         page = ctx.new_page()
 
         page.goto(args.list_url, wait_until="domcontentloaded")
@@ -86,7 +97,11 @@ def main():
         for it in items:
             it["title"] = norm_ws(it.get("title", ""))
 
-        browser.close()
+        ctx.close()
+        try:
+            browser.close()  # type: ignore[name-defined]
+        except Exception:
+            pass
 
     payload = {
         "listUrl": args.list_url,
