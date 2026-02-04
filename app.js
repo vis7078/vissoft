@@ -1,43 +1,32 @@
 /**
  * VIS GALLERY - Product Showcase Application
  * Neo Brutalism Style Gallery with Category Navigation
- * Version: 1.0.1 (Auto-deployment Test)
+ * Version: 1.0.2
  */
 
 // ==========================================
 // Real Projects - 실제 개발한 프로젝트들
+// Loaded from: data/projects.json
 // ==========================================
-const realProducts = [
-    {
-        id: 1,
-        name: 'VISGROVE 자산관리 통합시스템',
-        category: 'web',
-        categoryName: '웹 애플리케이션',
-        categoryIcon: '🌐',
-        badgeClass: 'badge-blue',
-        description: '대규모 복합시설 VISGROVE를 위한 엔터프라이즈급 자산관리 통합 플랫폼입니다. 임대, 매출, 주차, 시설관리(FM), 청구, 마케팅 등 분산된 업무 프로세스를 하나의 시스템으로 통합하여 관리 효율을 극대화합니다.',
-        techStack: ['Next.js 14', 'TypeScript', 'Cloudflare D1', 'Tailwind CSS'],
-        date: '2026-01-25',
-        image: 'https://picsum.photos/seed/visgrove-asset/600/400',
-        demoUrl: 'https://visgrove.com',
-        repoUrl: '#',
-        isReal: true,
-        featured: true,
-        features: [
-            '계약 및 임대 관리',
-            '매출 정산 및 VAN 연동',
-            '실시간 주차 모니터링',
-            '시설물 점검 및 VOC 관리',
-            '공과금 청구 및 세금계산서',
-            '이벤트/프로모션 관리'
-        ]
+let realProducts = [];
+
+async function loadRealProducts() {
+    try {
+        const res = await fetch('data/projects.json', { cache: 'no-cache' });
+        if (!res.ok) throw new Error(`Failed to load projects.json: ${res.status}`);
+        const data = await res.json();
+        if (!Array.isArray(data)) throw new Error('projects.json must be an array');
+        realProducts = data;
+    } catch (err) {
+        console.warn('Using empty realProducts (failed to load data/projects.json):', err);
+        realProducts = [];
     }
-];
+}
 
 // ==========================================
 // Sample Product Data (100+ items)
 // ==========================================
-const products = [...realProducts, ...generateSampleProducts()];
+let products = [];
 
 function generateSampleProducts() {
     const categories = [
@@ -556,7 +545,11 @@ function initEventListeners() {
 // ==========================================
 // Initialize Application
 // ==========================================
-function init() {
+async function init() {
+    // Load real project data before initializing UI
+    await loadRealProducts();
+    products = [...realProducts, ...generateSampleProducts()];
+
     // Video intro handlers
     const introOverlay = document.getElementById('introOverlay');
     const introVideo = document.getElementById('introVideo');
