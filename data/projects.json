@@ -7,7 +7,12 @@
     "categoryIcon": "🌐",
     "badgeClass": "badge-blue",
     "description": "대규모 복합시설 VISGROVE를 위한 엔터프라이즈급 자산관리 통합 플랫폼입니다. 임대, 매출, 주차, 시설관리(FM), 청구, 마케팅 등 분산된 업무 프로세스를 하나의 시스템으로 통합하여 관리 효율을 극대화합니다.",
-    "techStack": ["Next.js 14", "TypeScript", "Cloudflare D1", "Tailwind CSS"],
+    "techStack": [
+      "Next.js 14",
+      "TypeScript",
+      "Cloudflare D1",
+      "Tailwind CSS"
+    ],
     "date": "2026-01-25",
     "image": "https://picsum.photos/seed/visgrove-asset/600/400",
     "demoUrl": "https://visgrove.com",
@@ -21,6 +26,44 @@
       "시설물 점검 및 VOC 관리",
       "공과금 청구 및 세금계산서",
       "이벤트/프로모션 관리"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "ECK교육 통합 LMS · B2B/B2C 통합 플랫폼 리뉴얼 (포트폴리오)",
+    "category": "web",
+    "categoryName": "웹 애플리케이션",
+    "categoryIcon": "🌐",
+    "badgeClass": "badge-blue",
+    "description": "노후화된 LMS/홈페이지를 전면 개편해 B2C(강좌/도서)와 B2B(기업 학습관)를 통합한 플랫폼을 구축하는 포트폴리오 프로젝트. 멀티테넌트(기업별 마이크로사이트), 구독/바우처, 정산 자동화, 레거시 데이터 마이그레이션, 접근성/표준 준수를 핵심 요구로 설정.",
+    "techStack": [
+      "React",
+      "Node.js",
+      "MySQL",
+      "Multi-tenant",
+      "LMS",
+      "Payments"
+    ],
+    "date": "2026-02-05",
+    "image": "https://www.wishket.com/static/img/project/ogimage/development/web.png",
+    "demoUrl": "#",
+    "repoUrl": "https://github.com/vis7078/vissoft",
+    "isReal": true,
+    "featured": false,
+    "features": [
+      "B2B 기업별 독립 학습관(로고/배너/URL 커스텀)",
+      "강좌 Allow/Block 리스트",
+      "기수(Batch)·수료 기준(진도/시험) 설정",
+      "기업 관리자(현황/수강권 배포)",
+      "구독형 결제·바우처",
+      "B2C 상품 전시·검색·장바구니·결제",
+      "동영상 플레이어(배속/이어보기/북마크/DRM 연동)",
+      "마이페이지(수강/배송/증명서/1:1상담)",
+      "통합 관리자 CMS(콘텐츠/시험/과제)",
+      "정산(강사/CP 수익배분·정산서 자동)",
+      "통계 대시보드",
+      "회원/결제/수강이력 DB 마이그레이션",
+      "웹 접근성·표준 준수"
     ]
   }
 ]
