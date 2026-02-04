@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VIS Inc. 개발 생산물 갤러리 - 회사에서 개발한 웹앱과 소프트웨어를 한눈에 확인하세요">
+    <title>VIS GALLERY | 개발 생산물 전시</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Video Intro Overlay -->
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-content">
+            <div class="start-screen" id="startScreen">
+                <img src="logo640X640-10MB.jpg" alt="VIS Logo" class="intro-logo">
+                <button class="start-btn" id="startBtn">▶ 시작하기</button>
+            </div>
+            <div class="video-screen" id="videoScreen" style="display: none;">
+                <video id="introVideo" playsinline>
+                    <source src="vis_logo.mp4" type="video/mp4">
+                </video>
+                <button class="skip-btn" id="skipBtn">SKIP →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-bracket">[</span>
+                <span class="logo-text">VIS</span>
+                <span class="logo-bracket">]</span>
+                <span class="logo-sub">GALLERY</span>
+            </div>
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="검색어 입력..." class="search-input">
+                    <button class="search-btn" id="searchBtn">🔍</button>
+                </div>
+                <div class="view-toggle">
+                    <button class="toggle-btn active" id="gridView" title="그리드 보기">▦</button>
+                    <button class="toggle-btn" id="listView" title="리스트 보기">☰</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>카테고리</h2>
+                <button class="sidebar-toggle" id="sidebarToggle">◀</button>
+            </div>
+            <nav class="category-nav" id="categoryNav">
+                <!-- Categories will be dynamically populated -->
+            </nav>
+            <div class="sidebar-footer">
+                <div class="stat-box">
+                    <span class="stat-number" id="totalCount">0</span>
+                    <span class="stat-label">총 프로젝트</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Gallery Content -->
+        <main class="gallery-container">
+            <div class="gallery-header">
+                <h1 id="currentCategory">전체 프로젝트</h1>
+                <span class="item-count" id="itemCount">(0개)</span>
+                <div class="sort-options">
+                    <select id="sortSelect" class="sort-select">
+                        <option value="newest">최신순</option>
+                        <option value="oldest">오래된순</option>
+                        <option value="name">이름순</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Gallery items will be dynamically populated -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-icon">📭</div>
+                <h3>검색 결과가 없습니다</h3>
+                <p>다른 검색어나 카테고리를 시도해보세요</p>
+            </div>
+
+            <!-- Load More -->
+            <div class="load-more" id="loadMore" style="display: none;">
+                <button class="btn btn-primary" id="loadMoreBtn">더 보기</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Project Detail Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="projectModal">
+            <button class="modal-close" id="modalClose">✕</button>
+            <div class="modal-content">
+                <div class="modal-image-container">
+                    <img src="" alt="" id="modalImage" class="modal-image">
+                    <span class="modal-badge" id="modalBadge"></span>
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalTitle"></h2>
+                    <p class="modal-description" id="modalDescription"></p>
+                    <div class="modal-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">카테고리</span>
+                            <span class="meta-value" id="modalCategory"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">완료일</span>
+                            <span class="meta-value" id="modalDate"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">기술 스택</span>
+                            <div class="tech-stack" id="modalTechStack"></div>
+                        </div>
+                        <div id="modalFeatures"></div>
+                    </div>
+                    <div class="modal-actions">
+                        <a href="#" class="btn btn-primary" id="modalDemoLink" target="_blank"
+                            rel="noopener noreferrer">데모 보기</a>
+                        <a href="#" class="btn btn-secondary" id="modalRepoLink" target="_blank"
+                            rel="noopener noreferrer">저장소</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message" id="toastMessage"></span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
