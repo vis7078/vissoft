@@ -1,6 +1,7 @@
 /**
  * VIS GALLERY - Product Showcase Application
  * Neo Brutalism Style Gallery with Category Navigation
+ * Version: 1.0.1 (Auto-deployment Test)
  */
 
 // ==========================================
